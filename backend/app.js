@@ -15,7 +15,6 @@ const errors = require('./middlewares/errors');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -54,8 +53,3 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors); // обработчик ошибок celebrate
 
 module.exports = app;
-// app.listen(PORT, () => {
-//   // Если всё работает, консоль покажет, какой порт приложение слушает
-//   /* eslint no-console: "off" */
-//   console.log(`App listening on port ${PORT}`);
-// });
