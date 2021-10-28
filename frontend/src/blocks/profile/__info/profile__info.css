@@ -1,0 +1,16 @@
+.profile__info {
+  margin-left: 30px;
+  margin-right: auto;
+}
+
+@media all and (max-width: 950px) {
+  .profile__info {
+    margin: 20px auto 20px;
+  }
+}
+
+@media all and (max-width: 630px) {
+  .profile__info {
+    margin: 26px 0 36px;
+  }
+}

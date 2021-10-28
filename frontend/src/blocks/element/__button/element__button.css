@@ -1,0 +1,17 @@
+.element__button {
+    background: url(../../../images/like.svg) no-repeat;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 22px;
+    height: 19px;
+}
+
+.element__button:hover {
+    opacity: 0.5;
+}
+
+/*.element__button:active {
+    background: url(../../../images/black-like.svg) no-repeat;
+}*/
+

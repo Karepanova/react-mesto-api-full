@@ -1,0 +1,7 @@
+
+.profile__avatar-pen {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+
+}

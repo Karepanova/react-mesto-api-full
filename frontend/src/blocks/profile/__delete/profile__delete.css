@@ -1,0 +1,16 @@
+.profile__delete {
+    position: absolute;
+    background: url(../../../images/del.svg) no-repeat;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 26px;
+    height: 28px;
+    top: 18px;
+    right: 15px;
+}
+
+.profile__delete:hover {
+    opacity: 0.6;
+}
+

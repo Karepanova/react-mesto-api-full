@@ -1,0 +1,11 @@
+.profile__record {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media all and (max-width: 630px) {
+  .profile__record {
+    margin-bottom: 14px;
+  }
+}

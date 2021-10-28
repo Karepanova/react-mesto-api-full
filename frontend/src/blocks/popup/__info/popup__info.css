@@ -1,0 +1,21 @@
+.popup__info {
+    width: 100%;
+    border: none;
+    padding-bottom: 13px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    font-family: inherit;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.popup__info:first-of-type {
+    margin-top: 0;
+}
+
+.popup__info:last-of-type {
+    margin-bottom: 48px;
+}
