@@ -65,7 +65,7 @@ class Api {
  //8. Постановка и снятие лайка
  // 8.1 Установить лайк (PUT)
  likeCard(cardId) {
-  return fetch(`${this._address}/cards/likes/${cardId}`, {
+  return fetch(`${this._address}/cards/${cardId}/likes`, {
    method: 'PUT',
    headers: this._headers
   })
@@ -76,7 +76,7 @@ class Api {
 
  // 8.2 удалить лайк карточки  (DELETE)
  delLikeCard(cardId) {
-  return fetch(`${this._address}/cards/likes/${cardId}`, {
+  return fetch(`${this._address}/cards/${cardId}/likes`, {
    method: 'DELETE',
    headers: this._headers
   })
@@ -105,6 +105,10 @@ class Api {
    .then(this._checkResponse)
  }
 
+ updateToken() {
+  this._headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
+ }
+
  _checkResponse(res) {
   // тут проверка ответа
   if (res.ok) {
@@ -119,8 +123,8 @@ const api = new Api({
  // address: 'https://mesto.nomoreparties.co/v1/cohort-26',
  address: 'https://api.karepanova.nomoredomains.rocks',
  headers: {
-  // authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
-  authorization: `Bearer ${localStorage.getItem('jwt')}`,
+  // Authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
+  Authorization: `Bearer ${localStorage.getItem('jwt')}`,
   'Content-Type': 'application/json'
  }
 })

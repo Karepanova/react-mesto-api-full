@@ -4,3 +4,5 @@
 Backend: https://api.karepanova.nomoredomains.rocks/
 
 Frontend: https://karepanova.nomoredomains.rocks/
+
+IP: 178.154.200.43

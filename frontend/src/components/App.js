@@ -44,7 +44,7 @@ function App() {
   const token = Token.getToken();
   if (token) {
    auth.checkToken(token)
-    .then(({data}) => {
+    .then((data) => {
      setEmail(data.email);
      setLoggedIn(true);
      history.push('/');
@@ -54,25 +54,29 @@ function App() {
  }, [loggedIn]);
 
  React.useEffect(() => {
-  api.getUserData()
-   .then((data) => {
-    setCurrentUser(data);
-   })
-   .catch((err) => {
-    console.log(`Ошибка сервера ${err}`)
-   });
- }, []);
+  if (loggedIn) {
+   api.getUserData()
+    .then((data) => {
+     setCurrentUser(data);
+    })
+    .catch((err) => {
+     console.log(`Ошибка сервера ${err}`)
+    });
+  }
+ }, [loggedIn]);
 
  React.useEffect(() => {
-  //монтирование (рождение)
-  api.getArrayCards()
-   .then((data) => {
-    setCards(data);
-   })
-   .catch((err) => {
-    console.log(`Ошибка сервера ${err}`)
-   });
- }, []);
+  if (loggedIn) {
+   //монтирование (рождение)
+   api.getArrayCards()
+    .then((data) => {
+     setCards(data);
+    })
+    .catch((err) => {
+     console.log(`Ошибка сервера ${err}`)
+    });
+  }
+ }, [loggedIn]);
 
  function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true);
@@ -144,7 +148,7 @@ function App() {
 
  function handleCardLike(card) {
   // Снова проверяем, есть ли уже лайк на этой карточке
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const isLiked = card.likes.some(i => i === currentUser._id);
 
   // Отправляем запрос в API и получаем обновлённые данные карточки
   api.changeLikeCardStatus(card._id, !isLiked)
@@ -202,7 +206,7 @@ function App() {
  function handleRegister(formData) {
   auth.registration(formData)
    .then((res) => {
-    if (res.data) {
+    if (res._id) {
      showInfoTooltip(true);
      history.push('/sign-in'); //переход по ссылке
     }
@@ -215,6 +219,7 @@ function App() {
    .then(({token}) => {
     if (token) {
      Token.saveToken(token);
+     api.updateToken();
      setLoggedIn(true);
      history.push('/');
     }
