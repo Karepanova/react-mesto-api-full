@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const IncorrectDataError = require('../errors/incorrect-data-err');
 
 // получаем все карточки
 const getCards = (req, res, next) => {
@@ -15,6 +16,11 @@ const createCard = (req, res, next) => {
 
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send(card))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new IncorrectDataError('Некорректные данные');
+      }
+    })
     .catch(next);
 };
 
@@ -35,6 +41,14 @@ const deleteCard = (req, res, next) => {
         throw new ForbiddenError('Нельзя удалить чужую карточку');
       }
     })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Карточка не найдена');
+      }
+    })
     .catch(next);
 };
 
@@ -49,6 +63,14 @@ const addLike = (req, res, next) => {
       throw new NotFoundError('Нет карточки с таким id');
     })
     .then((card) => res.send(card))
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Карточка не найдена');
+      }
+    })
     .catch(next);
 };
 
@@ -63,6 +85,14 @@ const delLike = (req, res, next) => {
       throw new NotFoundError('Нет карточки с таким id');
     })
     .then((card) => res.send(card))
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Карточка не найдена');
+      }
+    })
     .catch(next);
 };
 

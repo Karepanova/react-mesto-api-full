@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken'); // импортируем модуль json
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
+const IncorrectDataError = require('../errors/incorrect-data-err');
+const DuplicateError = require('../errors/duplicate-err');
 
 // получить всех пользователей
 const getUsers = (req, res, next) => {
@@ -17,6 +19,14 @@ const getUser = (req, res, next) => {
       throw new NotFoundError('Нет пользователя с таким id');
     })
     .then((users) => res.send(users))
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Пользователь не найден');
+      }
+    })
     .catch(next);
 };
 
@@ -40,6 +50,14 @@ const createUser = (req, res, next) => {
     }))
     .then((({ _id }) => User.findById(_id)))
     .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new IncorrectDataError('Некорректные данные');
+      }
+      if (err.name === 'MongoServerError' && err.code === 11000) {
+        throw new DuplicateError('Пользователь с таким email уже существует!');
+      }
+    })
     .catch(next);
 };
 
@@ -51,6 +69,17 @@ const updateUser = (req, res, next) => {
       throw new NotFoundError('Нет пользователя с таким id');
     })
     .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new IncorrectDataError('Некорректные данные');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+    })
     .catch(next);
 };
 
@@ -62,6 +91,17 @@ const updateAvatar = (req, res, next) => {
       throw new NotFoundError('Нет пользователя с таким id');
     })
     .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new IncorrectDataError('Некорректные данные');
+      }
+      if (err.message === 'NotFound') {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      if (err.name === 'CastError') {
+        throw new IncorrectDataError('Некорректный id');
+      }
+    })
     .catch(next);
 };
 
@@ -88,12 +128,6 @@ const login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'someSecretKey-0000',
         { expiresIn: '7d' }, // токен будет просрочен через неделю после создания);
       );
-      res
-        .cookie('jwt', token, {
-          // token - наш JWT токен, который мы отправляем
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-        });
       // вернём токен
       res.send({ token });
     })

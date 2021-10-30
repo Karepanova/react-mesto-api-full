@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { errors } = require('celebrate');
 const {
   createUser,
   login,
@@ -12,24 +13,9 @@ const {
   validateLogin,
 } = require('./middlewares/validations');
 const auth = require('./middlewares/auth');
-const errors = require('./middlewares/errors');
+const centralErrors = require('./middlewares/errors');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-// const whitelist = [
-//   'https://karepanova.nomoredomains.rocks',
-//   'http://karepanova.nomoredomains.rocks',
-//   'localhost:3000'
-// ];
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
 
 const app = express();
 
@@ -68,6 +54,8 @@ app.use(() => {
 
 app.use(errorLogger); // подключаем логгер ошибок
 
-app.use(errors); // обработчик ошибок celebrate
+app.use(errors()); // обработчик ошибок celebrate
+
+app.use(centralErrors); // централизованный обработчик ошибок
 
 module.exports = app;
