@@ -26,6 +26,7 @@ const getUser = (req, res, next) => {
       if (err.message === 'NotFound') {
         throw new NotFoundError('Пользователь не найден');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -57,6 +58,7 @@ const createUser = (req, res, next) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         throw new DuplicateError('Пользователь с таким email уже существует!');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -79,6 +81,7 @@ const updateUser = (req, res, next) => {
       if (err.name === 'CastError') {
         throw new IncorrectDataError('Некорректный id');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -101,6 +104,7 @@ const updateAvatar = (req, res, next) => {
       if (err.name === 'CastError') {
         throw new IncorrectDataError('Некорректный id');
       }
+      next(err);
     })
     .catch(next);
 };

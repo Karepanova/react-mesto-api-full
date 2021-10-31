@@ -20,6 +20,7 @@ const createCard = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new IncorrectDataError('Некорректные данные');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -48,6 +49,7 @@ const deleteCard = (req, res, next) => {
       if (err.message === 'NotFound') {
         throw new NotFoundError('Карточка не найдена');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -70,6 +72,7 @@ const addLike = (req, res, next) => {
       if (err.message === 'NotFound') {
         throw new NotFoundError('Карточка не найдена');
       }
+      next(err);
     })
     .catch(next);
 };
@@ -92,6 +95,7 @@ const delLike = (req, res, next) => {
       if (err.message === 'NotFound') {
         throw new NotFoundError('Карточка не найдена');
       }
+      next(err);
     })
     .catch(next);
 };
