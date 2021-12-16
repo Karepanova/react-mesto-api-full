@@ -1,8 +1,8 @@
 # react-mesto-api-full
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. 
   
-Backend: https://api.karepanova.nomoredomains.rocks/
+Backend: https://api.mesto.karepanova.ru/
 
-Frontend: https://karepanova.nomoredomains.rocks/
+Frontend: https://mesto.karepanova.ru/
 
-IP: 178.154.200.43
+IP: 45.86.183.246
