@@ -47,6 +47,6 @@ class Auth {
 
 }
 
-const auth = new Auth('https://api.karepanova.nomoredomains.rocks');
+const auth = new Auth('https://api.mesto.karepanova.ru');
 
 export default auth;

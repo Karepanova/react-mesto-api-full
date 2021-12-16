@@ -120,8 +120,7 @@ class Api {
 }
 
 const api = new Api({
- // address: 'https://mesto.nomoreparties.co/v1/cohort-26',
- address: 'https://api.karepanova.nomoredomains.rocks',
+ address: 'https://api.mesto.karepanova.ru',
  headers: {
   // Authorization: '9f8fc9db-9c27-4bd4-bed6-8e527c6c542e',
   Authorization: `Bearer ${localStorage.getItem('jwt')}`,
