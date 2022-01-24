@@ -26,6 +26,7 @@
 * grid,
 * БЭМ (наименование классов и организация файловой структуры стилей),
 * Webpack.
+
 **Backend:**
 * Node.js,
 * mongoDB,
@@ -33,12 +34,13 @@
 * mongoose,
 * celebrate,
 * winston - логирование запросов и ошибок.
+
 **Удаленный сервер:**
 * облачный сервер на Яндекс.Облако,
 * домены по которым можно обратиться к API,
 * SSL сертификат.
 
-  **Ссылки:**
+**Ссылки:**
 * Backend: https://api.mesto.karepanova.ru/
 * Frontend: https://mesto.karepanova.ru/
 
